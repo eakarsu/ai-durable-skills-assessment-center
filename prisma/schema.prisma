@@ -1,0 +1,213 @@
+// Generated schema — modeled after beautyhqio conventions.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         Role     @default(ANALYST)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  ANALYST
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  actorName String?
+  action    String
+  entity    String
+  entityId  String?
+  detail    String?
+  createdAt DateTime @default(now())
+}
+
+model Rater {
+  id        String   @id @default(cuid())
+  name String
+  role String
+  certification String
+  reliabilityScore Float
+  status String
+  certifiedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  assessmentEvents AssessmentEvent[]
+  recordedSimulations RecordedSimulation[]
+  peerEvaluations PeerEvaluation[]
+  behavioralEvidences BehavioralEvidence[]
+  scoringRubrics ScoringRubric[]
+  competencyReports CompetencyReport[]
+  badgeAwards BadgeAward[]
+  calibrationSessions CalibrationSession[]
+  employerTranscripts EmployerTranscript[]
+  disputes Dispute[]
+  competencyFrameworks CompetencyFramework[]
+}
+
+model AssessmentEvent {
+  id        String   @id @default(cuid())
+  candidate String
+  simulationRef String
+  competencySet String
+  status String
+  heldAt DateTime?
+  durationMinutes Int
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RecordedSimulation {
+  id        String   @id @default(cuid())
+  candidate String
+  storageRef String
+  durationSeconds Int
+  modality String
+  status String
+  recordedAt DateTime?
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PeerEvaluation {
+  id        String   @id @default(cuid())
+  candidate String
+  evaluator String
+  context String
+  score Float
+  comments String
+  status String
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BehavioralEvidence {
+  id        String   @id @default(cuid())
+  candidate String
+  competency String
+  behavior String
+  context String
+  status String
+  timestampRef String
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ScoringRubric {
+  id        String   @id @default(cuid())
+  competency String
+  level String
+  descriptor String
+  points Int
+  version String
+  status String
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CompetencyReport {
+  id        String   @id @default(cuid())
+  candidate String
+  competency String
+  score Float
+  explanation String
+  status String
+  issuedAt DateTime?
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BadgeAward {
+  id        String   @id @default(cuid())
+  candidate String
+  badge String
+  level String
+  evidenceRef String
+  status String
+  awardedAt DateTime?
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CalibrationSession {
+  id        String   @id @default(cuid())
+  cohort String
+  agreementRate Float
+  anchorNotes String
+  status String
+  heldAt DateTime?
+  facilitator String
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EmployerTranscript {
+  id        String   @id @default(cuid())
+  candidate String
+  employer String
+  scope String
+  verificationCode String
+  status String
+  issuedAt DateTime?
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Dispute {
+  id        String   @id @default(cuid())
+  reportRef String
+  candidate String
+  ground String
+  status String
+  filedAt DateTime?
+  resolution String?
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CompetencyFramework {
+  id        String   @id @default(cuid())
+  name String
+  version String
+  competencies String
+  publisher String
+  status String
+  adoptedAt DateTime?
+  raterId String?
+  rater Rater? @relation(fields: [raterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
