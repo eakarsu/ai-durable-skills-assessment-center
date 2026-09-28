@@ -124,21 +124,21 @@ export const entities: Record<string, EntityConfig> = {
 export const workflows: WorkflowConfig[] = [
   {
     slug: "event-design",
-    title: "Assessment Designer",
+    title: "Draft: Assessment Designer",
     description: "Design a simulation to elicit competency evidence.",
     prompt: "You are an assessment-center psychologist. Design a simulation exercise that elicits observable behaviors for the target competencies.",
     fields: ["competencies", "context", "durationMin", "groupSize"],
   },
   {
     slug: "evidence-score",
-    title: "Evidence Scorer",
+    title: "Draft: Evidence Scorer",
     description: "Score behavioral evidence against a rubric.",
-    prompt: "You are a calibrated rater. Score the behavioral evidence against the rubric level descriptors; justify the level and note counterevidence.",
+    prompt: "Draft an explanation of supplied human rubric ratings and behavioral evidence. Do not claim to be calibrated or invent scores when rubric anchors or evidence are absent.",
     fields: ["evidence", "rubricLevels", "competency", "context"],
   },
   {
     slug: "report-draft",
-    title: "Competency Report Writer",
+    title: "Draft: Competency Report Writer",
     description: "Write an explainable competency report.",
     prompt: "You are an assessment report writer. Draft an explainable competency report: level, behavioral anchors, evidence quotes, and development recommendations.",
     fields: ["candidate", "scores", "evidenceQuotes", "purpose"],

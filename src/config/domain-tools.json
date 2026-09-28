@@ -1,0 +1,45 @@
+[
+  {
+    "id": "weighted-score",
+    "title": "Rubric score aggregation",
+    "description": "Aggregate human rubric ratings with explicit maxima and weights. This is not a calibrated model score.",
+    "example": {
+      "ratings": [
+        {
+          "competency": "Communication",
+          "score": 3,
+          "maximum": 4,
+          "weight": 1
+        },
+        {
+          "competency": "Problem solving",
+          "score": 4,
+          "maximum": 4,
+          "weight": 1
+        }
+      ],
+      "passPercent": 75
+    }
+  },
+  {
+    "id": "kappa",
+    "title": "Independent rater agreement",
+    "description": "Compute unweighted Cohen\u2019s kappa from paired categorical ratings.",
+    "example": {
+      "pairs": [
+        {
+          "raterA": "proficient",
+          "raterB": "proficient"
+        },
+        {
+          "raterA": "developing",
+          "raterB": "proficient"
+        },
+        {
+          "raterA": "developing",
+          "raterB": "developing"
+        }
+      ]
+    }
+  }
+]

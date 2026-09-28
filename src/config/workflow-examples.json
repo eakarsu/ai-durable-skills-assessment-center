@@ -1,0 +1,98 @@
+{
+  "event-design": [
+    {
+      "id": "example-1",
+      "label": "Collaboration task",
+      "values": {
+        "competencies": "Collaboration, listening, shared planning",
+        "context": "Fictional team must schedule a community workshop with limited resources.",
+        "durationMin": "45",
+        "groupSize": "4"
+      }
+    },
+    {
+      "id": "example-2",
+      "label": "Reasoning challenge",
+      "values": {
+        "competencies": "Critical thinking, evidence use, decision-making",
+        "context": "Fictional group compares two proposals with conflicting evidence.",
+        "durationMin": "60",
+        "groupSize": "3"
+      }
+    },
+    {
+      "id": "example-3",
+      "label": "Communication exercise",
+      "values": {
+        "competencies": "Communication, empathy, clarity",
+        "context": "Fictional team explains a service interruption to different audiences.",
+        "durationMin": "30",
+        "groupSize": "2"
+      }
+    }
+  ],
+  "evidence-score": [
+    {
+      "id": "example-1",
+      "label": "Anchored observation",
+      "values": {
+        "evidence": "Example response: I compared both options against the budget and asked the group to challenge my assumption.",
+        "rubricLevels": "0: absent; 1: emerging; 2: consistent; 3: effective with explicit evidence",
+        "competency": "Critical thinking",
+        "context": "Fictional team planning exercise; independent human scoring required."
+      }
+    },
+    {
+      "id": "example-2",
+      "label": "Conflicting evidence",
+      "values": {
+        "evidence": "Example observer A reports turn-taking; observer B reports repeated interruptions.",
+        "rubricLevels": "0: absent; 1: emerging; 2: consistent; 3: effective with explicit evidence",
+        "competency": "Collaboration",
+        "context": "Fictional group discussion; obtain recordings or reconciled observer notes."
+      }
+    },
+    {
+      "id": "example-3",
+      "label": "Unobserved behavior",
+      "values": {
+        "evidence": "Example artifact contains a written recommendation but no audience interaction.",
+        "rubricLevels": "0–4 human rubric; unobserved criteria must remain unassessed.",
+        "competency": "Empathy",
+        "context": "Fictional written exercise; evidence does not establish interpersonal behavior."
+      }
+    }
+  ],
+  "report-draft": [
+    {
+      "id": "example-1",
+      "label": "Development feedback",
+      "values": {
+        "candidate": "Example candidate A",
+        "scores": "Human ratings: reasoning 3/4, communication 3/4.",
+        "evidenceQuotes": "Example quote: I checked the source before recommending the change.",
+        "purpose": "Development feedback with concrete next steps; no hiring probability."
+      }
+    },
+    {
+      "id": "example-2",
+      "label": "Reviewer disagreement",
+      "values": {
+        "candidate": "Example candidate B",
+        "scores": "Reviewer A: collaboration 2/4; reviewer B: 4/4.",
+        "evidenceQuotes": "Example quotes conflict about how the candidate handled disagreement.",
+        "purpose": "Explain differences and request independent reconciliation before a decision."
+      }
+    },
+    {
+      "id": "example-3",
+      "label": "Evidence incomplete",
+      "values": {
+        "candidate": "Example candidate C",
+        "scores": "Reasoning 3/4; collaboration and empathy unassessed.",
+        "evidenceQuotes": "Example quote supports reasoning only; no interaction recording supplied.",
+        "purpose": "Document evidence coverage and propose a targeted follow-up assessment."
+      }
+    }
+  ]
+}

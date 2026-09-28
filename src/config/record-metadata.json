@@ -1,0 +1,540 @@
+{
+  "Rater": {
+    "name": "Rater",
+    "fields": [
+      {
+        "name": "name",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "role",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "certification",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "reliabilityScore",
+        "kind": "number",
+        "required": true,
+        "min": 0
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "certifiedAt",
+        "kind": "date",
+        "required": false
+      }
+    ]
+  },
+  "AssessmentEvent": {
+    "name": "AssessmentEvent",
+    "fields": [
+      {
+        "name": "candidate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "simulationRef",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "competencySet",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "heldAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "durationMinutes",
+        "kind": "number",
+        "required": true,
+        "integer": true,
+        "min": 0
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "RecordedSimulation": {
+    "name": "RecordedSimulation",
+    "fields": [
+      {
+        "name": "candidate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "storageRef",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "durationSeconds",
+        "kind": "number",
+        "required": true,
+        "integer": true,
+        "min": 0
+      },
+      {
+        "name": "modality",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "recordedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "PeerEvaluation": {
+    "name": "PeerEvaluation",
+    "fields": [
+      {
+        "name": "candidate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "evaluator",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "context",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "score",
+        "kind": "number",
+        "required": true,
+        "min": 0
+      },
+      {
+        "name": "comments",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "BehavioralEvidence": {
+    "name": "BehavioralEvidence",
+    "fields": [
+      {
+        "name": "candidate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "competency",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "behavior",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "context",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "timestampRef",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "ScoringRubric": {
+    "name": "ScoringRubric",
+    "fields": [
+      {
+        "name": "competency",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "level",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "descriptor",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "points",
+        "kind": "number",
+        "required": true,
+        "integer": true
+      },
+      {
+        "name": "version",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "CompetencyReport": {
+    "name": "CompetencyReport",
+    "fields": [
+      {
+        "name": "candidate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "competency",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "score",
+        "kind": "number",
+        "required": true,
+        "min": 0
+      },
+      {
+        "name": "explanation",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "issuedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "BadgeAward": {
+    "name": "BadgeAward",
+    "fields": [
+      {
+        "name": "candidate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "badge",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "level",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "evidenceRef",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "awardedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "CalibrationSession": {
+    "name": "CalibrationSession",
+    "fields": [
+      {
+        "name": "cohort",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "agreementRate",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "name": "anchorNotes",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "heldAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "facilitator",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "EmployerTranscript": {
+    "name": "EmployerTranscript",
+    "fields": [
+      {
+        "name": "candidate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "employer",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "scope",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "verificationCode",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "issuedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "Dispute": {
+    "name": "Dispute",
+    "fields": [
+      {
+        "name": "reportRef",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "candidate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "ground",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "filedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "resolution",
+        "kind": "string",
+        "required": false
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  },
+  "CompetencyFramework": {
+    "name": "CompetencyFramework",
+    "fields": [
+      {
+        "name": "name",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "version",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "competencies",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "publisher",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "adoptedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "raterId",
+        "kind": "string",
+        "required": false,
+        "relation": "Rater"
+      }
+    ],
+    "parent": {
+      "field": "raterId",
+      "entity": "Rater"
+    }
+  }
+}
