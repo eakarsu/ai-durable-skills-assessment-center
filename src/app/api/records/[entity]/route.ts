@@ -19,7 +19,9 @@ export async function GET(request: NextRequest, context: Context) {
     if (!Number.isInteger(page) || page < 1 || page > 100000 || !Number.isInteger(pageSize) || pageSize < 1 || pageSize > 100) throw new RequestError("Invalid page or page size", 400);
     const search = (params.get("q") || "").slice(0, 200);
     const searchFields = recordMetadata[entity].fields.filter(f => f.kind === "string");
-    const where = search && searchFields.length ? { OR: searchFields.map(f => ({ [f.name]: { contains: search, mode: "insensitive" } })) } : {};
+    const where: Record<string, unknown> = search && searchFields.length ? { OR: searchFields.map(f => ({ [f.name]: { contains: search, mode: "insensitive" } })) } : {};
+    const statusFilter = (params.get("status") || "").slice(0, 100);
+    if (statusFilter && recordMetadata[entity].fields.some(f => f.name === "status")) where.status = statusFilter;
     const [rows, total] = await prisma.$transaction([
       // Dynamic delegates remain Prisma promises at runtime.
       client.findMany({ where, orderBy: [{ createdAt: "desc" }, { id: "desc" }], skip: (page - 1) * pageSize, take: pageSize }) as Prisma.PrismaPromise<unknown>,

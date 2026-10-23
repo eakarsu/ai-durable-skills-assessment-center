@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+<script src="/feature-pack/feature-pack.js" defer />
         <Providers>{children}</Providers>
       </body>
     </html>

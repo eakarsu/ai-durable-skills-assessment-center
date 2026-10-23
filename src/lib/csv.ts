@@ -1,6 +1,6 @@
 // Shared CSV helpers - dependency-free
 export function toCsv(rows: Record<string, unknown>[], columns?: string[]): string {
-  if (rows.length === 0) return "";
+  if (rows.length === 0) return columns ? columns.join(",") : "";
   const cols = columns ?? Object.keys(rows[0]);
   const esc = (v: unknown) => {
     const s = v == null ? "" : String(v);

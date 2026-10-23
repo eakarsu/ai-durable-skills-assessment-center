@@ -35,7 +35,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (process.env.NODE_ENV === "production" && credentials?.password === "Demo!23456") return null;
         if (!credentials?.email || !credentials.password) {
           return null;
         }

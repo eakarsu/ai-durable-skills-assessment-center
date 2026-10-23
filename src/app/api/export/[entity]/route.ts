@@ -1,0 +1,7 @@
+import { Prisma } from '@prisma/client';
+import { authorize } from '@/lib/api-auth';
+import { prisma } from '@/lib/prisma';
+import { records,errorResponse } from '@/lib/record-store';
+import { recordMetadata,RequestError } from '@/lib/record-policy';
+import { toCsv,csvResponse } from '@/lib/csv';
+export async function GET(request:Request,context:{params:Promise<{entity:string}>}){try{const user=await authorize();const{entity}=await context.params;if(!recordMetadata[entity])throw new RequestError('Unknown entity',404);const format=new URL(request.url).searchParams.get('format')||'json';if(!['json','csv'].includes(format))throw new RequestError('Choose JSON or CSV');const rows=await prisma.$transaction(async tx=>{const client=records(tx,entity);if(await client.count()>10000)throw new RequestError('Export exceeds 10,000 rows. Use paginated records API for larger extracts.',413);const data=await client.findMany({orderBy:[{createdAt:'asc'},{id:'asc'}],take:10000});await tx.auditLog.create({data:{actorId:user.id,actorName:user.name,action:'EXPORT',entity,detail:JSON.stringify({rows:data.length,format})}});return data;},{isolationLevel:Prisma.TransactionIsolationLevel.RepeatableRead});if(format==='csv')return csvResponse(`${entity}.csv`,toCsv(rows,['id',...recordMetadata[entity].fields.map(f=>f.name),'createdAt','updatedAt']));return new Response(JSON.stringify(rows,null,2),{headers:{'Content-Type':'application/json','Content-Disposition':`attachment; filename="${entity}.json"`}});}catch(e){return errorResponse(e);}}

@@ -11,15 +11,20 @@ if [ -f .env ]; then
   set -a; source .env; set +a
 fi
 
+if [ -z "${NEXTAUTH_SECRET:-}" ] || [ "${#NEXTAUTH_SECRET}" -lt 32 ]; then
+  echo "NEXTAUTH_SECRET must be set to at least 32 characters." >&2
+  exit 1
+fi
+
+if [ -z "${DATABASE_URL:-}" ]; then
+  echo "DATABASE_URL is not set. Copy .env.example to .env first." >&2
+  exit 1
+fi
+
 if [ ! -d node_modules ]; then
   npm install
 fi
 
-if [ -n "${DATABASE_URL:-}" ]; then
-  npx prisma migrate deploy
-else
-  echo "DATABASE_URL is not set. Copy .env.example to .env first." >&2
-  exit 1
-fi
+npx prisma migrate deploy
 
 exec npm run dev
